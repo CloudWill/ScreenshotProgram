@@ -21,12 +21,12 @@ with open ("printscreen.py", 'w') as file:
 	file.writelines(data)
 
 #setups the ahk	script
-with open ("2-hotkeys.ahk", "r") as file:
+with open ("../2-hotkeys.ahk", "r") as file:
 	data = file.readlines()
 
 currentDir = os.getcwd()
 
 data[3] = f'python "{currentDir}\printscreen.py"\n'
 
-with open ("2-hotkeys.ahk", "w") as file:
+with open ("../2-hotkeys.ahk", "w") as file:
 	data = file.writelines(data)
