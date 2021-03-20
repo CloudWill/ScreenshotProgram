@@ -1,28 +1,34 @@
 import pyautogui
 import os
+from datetime import datetime
+import json
 
-# directorypath
-directoryPath = os.path.abspath(os.path.join(os.path.dirname(__file__)))
 
-input("Press Enter after positioning mouse cursor in the top left section")
+def change_screenshot_size(jsonData):
+    input("Press Enter after positioning mouse cursor in the top left section")
+    x1, y1 = pyautogui.position()
 
-initialX, initialY = pyautogui.position()
+    input("Press Enter after positioning mouse cursor in the bottom right section")
+    x2, y2 = pyautogui.position()
 
-input("Press Enter after positioning mouse cursor in the bottom right section")
-finalX, finalY = pyautogui.position()
+    print(f'x1 is {x1} x2 is {y1} x2 is {x2} y2 is {y2}')
 
-print(initialX)
-print(finalX)
+    jsonData["x1"] = x1
+    jsonData["y1"] = y1
+    jsonData["x2"] = x2 - x1
+    jsonData["y2"] = y2 - y1
 
-directoryPath = directoryPath + "\\Printscreen.py"
+    settingsPath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    with open(settingsPath + '\\Settings.txt', 'w') as f:
+        json.dump(jsonData, f)
 
-with open(directoryPath, "r") as file:
-    data = file.readlines()
 
-# four-integer tuple of the left, top, width, and height of the region
-data[
-    7] = f'myScreenshot = pyautogui.screenshot(region=({initialX},{initialY}, {finalX - initialX},' \
-         f' {finalY - initialY}))\n'
-
-with open(directoryPath, 'w') as file:
-    file.writelines(data)
+def print_screen(ssDir,jsonData):
+    x1 = jsonData["x1"]
+    y1 = jsonData["y1"]
+    x2 = jsonData["x2"]
+    y2 = jsonData["y2"]
+    myScreenshot = pyautogui.screenshot(region=(x1, y1, x2, y2))
+    now = datetime.now().strftime("%Y-%m-%d %H%M%S")
+    pathName = f'{ssDir}\\{now}.png'
+    myScreenshot.save(pathName)

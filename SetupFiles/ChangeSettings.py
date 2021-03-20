@@ -2,42 +2,29 @@ import os
 import json
 
 
-def ChangePrintScreen(path, ssLoc):
-    path = path + "\\Printscreen.py"
-    # reads the file
-    with open(path, "r") as file:
-        data = file.readlines()
+def reset_default():
+    settingsPath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
-    if ssLoc == '/':
-        print('changing to default')
-        data[8] = f'screenshotPath = os.path.abspath(os.path.join(os.path.dirname( __file__ ),' \
-                  f' \'..\', \'Screenshots\'))\n'
-    else:
-        print('changing to new path')
-        data[8] = f'screenshotPath = "{ssLoc}"\n'
+    screenShotPath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'Screenshots'))
 
-    # writes to the file
-    with open(path, 'w') as file:
-        file.writelines(data)
+    defaultSettings = {"ScreenshotLocation": f"{screenShotPath}",
+                       "Shortcut": "^J",
+                       "x1": "0",
+                       "y1": "0",
+                       "x2": "1919",
+                       "y2": "1079"
+                       }
+
+    with open(settingsPath + '\\Settings.txt', 'w') as f:
+        json.dump(defaultSettings, f)
 
 
-def ChangeShortcutKey(path, sc):
+def change_shortcut_key(path, sc):
     path = path + "\\SetupAhkFile.py"
     # reads the file
     with open(path, "r") as file:
         data = file.readlines()
-    print(f'changing to {data[4]}')
-    data[4] = f'ss = "{sc}"\n'
+    data[6] = f'\tss = "{sc}"\n'
     # writes to the file
     with open(path, 'w') as file:
         file.writelines(data)
-
-
-SettingsPath = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-
-with open(SettingsPath + '\\Settings.txt', 'r') as f:
-    data = json.load(f, strict=False)
-
-SettingsPath = SettingsPath + "\\SetupFiles"
-ChangePrintScreen(SettingsPath, data["ScreenshotLocation"])
-ChangeShortcutKey(SettingsPath, data["Shortcut"])

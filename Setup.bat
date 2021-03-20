@@ -1,43 +1,35 @@
 @ECHO OFF
 
-Echo Launch dir: "%~dp0"
-Echo Current dir: "%CD%"
+::see if python is already installed
+call python -V
 
-cd %~dp0
+if %ERRORLEVEL% == 0 goto :next
+goto :install
 
-ECHO Installing Required Programs
+:install
+	(
+		cd %~dp0
+		ECHO Installing Required Programs
+		SetupFiles\Programs\AutoHotkey_1.1.32.00_setup
+		SetupFiles\Programs\python-3.8.2.exe InstallAllUsers=0 Include_launcher=0 Include_test=0 SimpleInstall=1 SimpleInstallDescription="Just for me, no test suite."
 
-ECHO Installing Autohotkey
-SetupFiles\AutoHotkey_1.1.32.00_setup
+		ECHO installing required dependencies
+		python -m pip install --upgrade pip
+		pip install pyautogui
+		echo.
+		echo.
+		::reset to default settings. Then change the screenshot size
+		python SetupFiles\Main.py 3
+		python SetupFiles\Main.py 1
+		goto :endofscript
+	)
 
-ECHO Installing Python
-SetupFiles\python-3.8.2.exe InstallAllUsers=0 Include_launcher=0 Include_test=0 SimpleInstall=1 SimpleInstallDescription="Just for me, no test suite."
-
-cd %~dp0
-
-ECHO installing required dependencies
-python -m pip install --upgrade pip
-
-pip install pyautogui
-
-cd %~dp0
-
-ECHO Running script setup
-python SetupFiles\ScreenshotSetup.py
-
-ECHO Creating AHK File
-python SetupFiles\SetupAhkFile.py
+:next
+	(
+		python SetupFiles\Main.py 
+	)
 
 
-ECHO Starting AHK
+:endofscript
 
-:: the path to the AutoHotkey.exe to be used:
-@set AHK_PATH=%PROGRAMFILES%\AutoHotkey\AutoHotkey.exe
-
-:: the (relative or absolute) path to the script to be launched:
-@set SCRIPT_PATH=%~dp0\SetupFiles\AutoHotKeysSettings.ahk
-
-:: run AHK
-START "" "%AHK_PATH%" "%SCRIPT_PATH%"
-
-exit
+echo "Script complete"
