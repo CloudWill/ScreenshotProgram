@@ -1,1 +1,1 @@
-{"ScreenshotLocation": "D:\\OneDrive\\Sorted\\Programming\\Python\\PrintScreen - Copy\\Screenshots", "Shortcut": "^J", "x1": 0, "y1": 0, "x2": 1915, "y2": 1036}
+{}
