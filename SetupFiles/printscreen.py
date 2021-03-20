@@ -5,8 +5,8 @@ import os
 ##start
 #do not change as position.py relies on line 7
 #four-integer tuple of the left, top, width, and height of the region
-myScreenshot = pyautogui.screenshot(region=(219,114, 1213, 523))
-screenshotPath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'screenshots'))
+myScreenshot = pyautogui.screenshot(region=(1007,695, 353, 110))
+screenshotPath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'Screenshots'))
 ##end
 
 now = datetime.now().strftime("%Y-%m-%d %H%M%S")

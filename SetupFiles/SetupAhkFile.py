@@ -2,7 +2,7 @@ import os
 
 #do not change as ChangeSettings relies on these lines
 ##start
-ss = "^u"
+ss = "^w"
 ##end
 
 directoryPath = os.path.abspath(os.path.join(os.path.dirname( __file__ )))

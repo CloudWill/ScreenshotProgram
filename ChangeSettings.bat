@@ -5,7 +5,6 @@ cd %~dp0
 ECHO Running new settings
 python SetupFiles\ChangeSettings.py
 
-
 cd %~dp0
 
 ECHO Creating AHK File

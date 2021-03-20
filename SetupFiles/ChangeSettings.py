@@ -9,7 +9,7 @@ def ChangePrintScreen(path, ssLoc):
     if ssLoc == '/':
         print('changing to default')
         data[8] = f'screenshotPath = os.path.abspath(os.path.join(os.path.dirname( __file__ ),' \
-                  f' \'..\', \'screenshots\'))\n'
+                  f' \'..\', \'Screenshots\'))\n'
     else:
         print('changing to new path')
         data[8] = f'screenshotPath = "{ssLoc}"\n'

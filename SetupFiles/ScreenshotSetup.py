@@ -1,7 +1,6 @@
 import pyautogui
 import os
 
-
 #directorypath
 directoryPath = os.path.abspath(os.path.join(os.path.dirname( __file__ )))
 
