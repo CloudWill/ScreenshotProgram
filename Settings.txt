@@ -1,4 +1,4 @@
 {
 	"ScreenshotLocation": "/",
-	"Shortcut": "^w"
+	"Shortcut": "^J"
 }

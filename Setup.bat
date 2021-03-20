@@ -29,7 +29,6 @@ ECHO Creating AHK File
 python SetupFiles\SetupAhkFile.py
 
 
-
 ECHO Starting AHK
 
 :: the path to the AutoHotkey.exe to be used:
